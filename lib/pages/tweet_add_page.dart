@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class TweetAddPage extends StatefulWidget {
@@ -10,6 +11,15 @@ class TweetAddPage extends StatefulWidget {
 class _TweetAddPageState extends State<TweetAddPage> {
   TextEditingController _tweetController = TextEditingController();
 
+  _doneTweetButton(String content) {
+    CollectionReference posts = FirebaseFirestore.instance.collection('tweet');
+    posts.add({"content": content});
+    Navigator.pop(context);
+
+    /// 入力欄をクリアにする
+    _tweetController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +30,7 @@ class _TweetAddPageState extends State<TweetAddPage> {
         actions: [
           IconButton(
             onPressed: () {
-              _doneTweetButton();
+              _doneTweetButton(_tweetController.text);
             },
             icon: Icon(Icons.done),
           ),
@@ -53,9 +63,5 @@ class _TweetAddPageState extends State<TweetAddPage> {
         ),
       ),
     );
-  }
-
-  void _doneTweetButton() {
-    Navigator.pop(context);
   }
 }

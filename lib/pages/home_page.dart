@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -6,32 +7,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //List<Widget>? _task = [];
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   _fetchTaskData();
-  // }
-
-  // void _fetchTaskData() async {
-  //   QuerySnapshot snapshot =
-  //       await Firestore.instance.collection('task').getDocuments();
-  //   for (var i = 0; i < snapshot.documents.length; i++) {
-  //     _task!.add(snapshot.documents[i].data['title']);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return Container();
-    // return StreamBuilder(
-    //     stream: Firestore.instance.collection('task').snapshots(),
-    //     builder: (context, snapshot) {
-    //       return ListView.builder(itemBuilder: (context, index) {
-    //         return Text('aa');
-    //       });
-    //     });
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection("tweet").snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            return Card(
+              child: ListTile(
+                ///title: Text(document.data()["content"]),
+                title: Text(''),
+                subtitle: Text("サブタイトル"),
+              ),
+            );
+          }).toList(),
+        );
+      },
+    );
   }
 }
