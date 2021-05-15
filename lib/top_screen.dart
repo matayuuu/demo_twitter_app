@@ -1,9 +1,10 @@
 import 'package:demo_0510/pages/home_page.dart';
+import 'package:demo_0510/pages/rankingPage.dart';
 import 'package:demo_0510/pages/search_page.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/home_page.dart';
-import 'pages/task_add_page.dart';
+import 'pages/tweet_add_page.dart';
 
 class TopScreen extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _TopScreenState extends State<TopScreen> {
   int _selectedIndex = 0;
   PageController? _pageController;
 
-  static List<Widget> _pageList = [HomePage(), SearchPage(), TaskAddPage()];
+  static List<Widget> _pageList = [HomePage(), SearchPage(), RankingPage()];
 
   void _onPageChanged(int index) {
     setState(() {
@@ -39,37 +40,51 @@ class _TopScreenState extends State<TopScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Task管理アプリ'),
-      ),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: _onPageChanged,
-        children: _pageList,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'TaskAdd',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          _selectedIndex = index;
+        appBar: AppBar(
+          title: const Text('OCTwitter APP'),
+          actions: [
+            ElevatedButton.icon(
+                onPressed: () {}, icon: Icon(Icons.more_vert), label: Text(''))
+          ],
+        ),
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: _onPageChanged,
+          children: _pageList,
+        ),
 
-          _pageController!.animateToPage(index,
-              duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-        },
-      ),
-    );
+        ///floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TweetAddPage()),
+              );
+            }),
+        bottomNavigationBar: BottomNavigationBar(
+          // backgroundColor: Theme.of(context).primaryColor,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.timeline),
+              label: 'Ranking',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            _selectedIndex = index;
+
+            _pageController!.animateToPage(index,
+                duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+          },
+        ));
   }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RunkingPage extends StatefulWidget {
+class RankingPage extends StatefulWidget {
   //const RunkingPage({Key key}) : super(key: key);
 
   @override
-  _RunkingPageState createState() => _RunkingPageState();
+  _RankingPageState createState() => _RankingPageState();
 }
 
-class _RunkingPageState extends State<RunkingPage> {
+class _RankingPageState extends State<RankingPage> {
   @override
   Widget build(BuildContext context) {
     return Container();
