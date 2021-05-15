@@ -6,16 +6,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //List<Widget>? _task = [];
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   _fetchTaskData();
+  // }
+
+  // void _fetchTaskData() async {
+  //   QuerySnapshot snapshot =
+  //       await Firestore.instance.collection('task').getDocuments();
+  //   for (var i = 0; i < snapshot.documents.length; i++) {
+  //     _task!.add(snapshot.documents[i].data['title']);
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListTile(
-        leading: Icon(Icons.people),
-        title: Text("ListTile with subTitle"),
-        trailing: Icon(Icons.more_vert),
-        subtitle: Text("This is subtitle."),
-        onTap: () {},
-      ),
-    );
+    return Container();
+    // return StreamBuilder(
+    //     stream: Firestore.instance.collection('task').snapshots(),
+    //     builder: (context, snapshot) {
+    //       return ListView.builder(itemBuilder: (context, index) {
+    //         return Text('aa');
+    //       });
+    //     });
   }
 }
