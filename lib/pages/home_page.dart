@@ -19,7 +19,8 @@ class _HomePageState extends State<HomePage> {
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             return Card(
               child: ListTile(
-                ///title: Text(document.data()["content"]),
+                //todo ↓がエラーになる
+                //title: Text(document.data()["content"]),
                 title: Text(''),
                 subtitle: Text("サブタイトル"),
               ),
